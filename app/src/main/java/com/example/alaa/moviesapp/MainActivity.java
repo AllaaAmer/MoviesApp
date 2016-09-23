@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     private SwipeRefreshLayout swipeRefreshLayout;
 
     int lastFirstVisiblePosition;
+    DatabaseHelper dbHelper;
 
     //fields
     private boolean mTwoPane;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
 
         // get data from intent
         if (getIntent() != null && getIntent().hasExtra("Favourite")) {
-            DatabaseHelper dbHelper = new DatabaseHelper(this);
+           dbHelper = new DatabaseHelper(this);
             List<Movie> FavMovies = dbHelper.getMovies();
             movieAdapter.setData(FavMovies);
 
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(this);
-
 
     }
 
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.List
     @Override
     protected void onResume() {
         super.onResume();
-        loadData();
+       // loadData();
         if (mitemState != null)
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view_movies);
         recyclerView.getLayoutManager().onRestoreInstanceState(mitemState);
